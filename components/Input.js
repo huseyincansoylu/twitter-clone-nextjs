@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useRef, useState } from "react";
 import { db, storage } from "../firebase";
+import { useSession } from "next-auth/react";
 import {
   addDoc,
   collection,
@@ -22,6 +23,8 @@ const Input = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  const { data: session } = useSession();
+
   const filePickerRef = useRef();
 
   const addImageToPost = (e) => {
@@ -41,10 +44,10 @@ const Input = () => {
     setLoading(true);
 
     const docRef = await addDoc(collection(db, "posts"), {
-      // id: session.user.uid,
-      // username: session.user.name,
-      // userImg: session.user.image,
-      // tag: session.user.tag,
+      id: session.user.uid,
+      username: session.user.name,
+      userImg: session.user.image,
+      tag: session.user.tag,
       text: input,
       timestamp: serverTimestamp(),
     });
@@ -72,7 +75,7 @@ const Input = () => {
       }`}
     >
       <img
-        src="https://avatars.githubusercontent.com/u/102976899?v=4"
+        src={session.user.image}
         alt="profile"
         className="h-11 w-11 rounded-full cursor-pointer"
       />
