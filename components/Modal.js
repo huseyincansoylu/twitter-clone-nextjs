@@ -43,9 +43,9 @@ function Modal() {
 
     await addDoc(collection(db, "posts", postId, "comments"), {
       comment: comment,
-      username: session.user.name,
-      tag: session.user.tag,
-      userImg: session.user.image,
+      username: session?.user.name,
+      tag: session?.user.tag,
+      userImg: session?.user.image,
       timestamp: serverTimestamp(),
     });
 

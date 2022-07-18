@@ -43,11 +43,12 @@ const Input = () => {
     if (loading) return;
     setLoading(true);
 
+
     const docRef = await addDoc(collection(db, "posts"), {
-      id: session.user.uid,
-      username: session.user.name,
-      userImg: session.user.image,
-      tag: session.user.tag,
+      id: session?.user.uid,
+      username: session?.user.name,
+      userImg: session?.user.image,
+      tag: session?.user.tag,
       text: input,
       timestamp: serverTimestamp(),
     });
@@ -70,9 +71,8 @@ const Input = () => {
 
   return (
     <div
-      className={`border-b border-gray-700 p-3 flex space-x-3 overflow-y-scroll scrollbar-hide ${
-        loading && "opacity-60"
-      }`}
+      className={`border-b border-gray-700 p-3 flex space-x-3 overflow-y-scroll scrollbar-hide ${loading && "opacity-60"
+        }`}
     >
       <img
         src={session.user.image}
